@@ -1,0 +1,64 @@
+CREATE OR REPLACE FUNCTION auto_cancell()
+RETURNS SETOF varchar AS
+$BODY$
+DECLARE
+    hod_cur CURSOR FOR select * from hod_leave;
+	dean_cur CURSOR FOR select * from dean_leave;
+	dir_cur CURSOR FOR select * from dir_leave;
+    dir_row RECORD;
+    hod_row RECORD;
+	dean_row RECORD;
+BEGIN   
+    open hod_cur;
+    LOOP
+    fetch hod_cur into hod_row;
+        exit when not found;
+		if hod_row.start_date = current_date and cast(hod_row.submitted as date) <  hod_row.start_date then
+        	insert into rejected values (hod_row.faculty_id,hod_row.dept_name,'auto cancelled','start date of your leave crossed befor approved',current_date);
+			delete from hod_leave where hod_row.faculty_id = hod_leave.faculty_id;
+		end if;
+    END LOOP;
+    close hod_cur;
+	open dean_cur;
+    LOOP
+    fetch dean_cur into dean_row;
+        exit when not found;
+		if dean_row.start_date = current_date and cast(dean_row.submitted as date) <  dean_row.start_date then
+        	insert into rejected values (dean_row.faculty_id,dean_row.dept_name,'auto cancelled','start date of your leave crossed befor approved',current_date);
+			delete from dean_leave where dean_row.faculty_id = dean_leave.faculty_id;
+		end if;
+    END LOOP;
+    close dean_cur;
+	open dir_cur;
+    LOOP
+    fetch dir_cur into dir_row;
+        exit when not found;
+		if dir_row.start_date = current_date and cast(dir_row.submitted as date) <  dir_row.start_date then
+        	insert into rejected values (dir_row.faculty_id,dir_row.dept_name,'auto cancelled','start date of your leave crossed befor approved',current_date);
+			delete from dir_leave where dir_row.faculty_id = dir_leave.faculty_id;
+		end if;
+    END LOOP;
+    close dir_cur;
+END;
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+  
+select auto_cancell();
+
+
+-----------------------------------------
+
+create or replace procedure update_year()
+language plpgsql
+as $$
+declare
+-- variable declaration
+cur_year    char(4) := date_part('year',now());
+begin
+-- stored procedure body
+update faculty
+set curr_year = cast(cur_year as numeric), leave_left = 10
+where curr_year <> cast(cur_year as numeric) and position<>'dir';
+end; $$
+
+call update_year();

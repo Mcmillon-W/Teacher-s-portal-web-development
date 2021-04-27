@@ -1,0 +1,114 @@
+create table faculty (
+	faculty_id varchar(50),
+	faculty_name varchar(50),
+	dept_name varchar(20),
+	leave_left numeric(2),
+	curr_year numeric(4),
+	position varchar(5), 
+	primary key (faculty_id));
+
+create table log(
+ uname varchar(30),
+ email varchar(50) primary key,
+ epassword varchar(50)
+);
+
+insert into log values('r','r@iitrpr.ac.in','abc');
+insert into log values('ra','ra@iitrpr.ac.in','xyz');
+insert into log values('ram','ram@iitrpr.ac.in','srt');
+insert into log values('rame','rame@iitrpr.ac.in','kjlo');
+insert into log values('rames','rames@iitrpr.ac.in','og');
+insert into log values('ramesh','ramesh@iitrpr.ac.in','l');
+insert into log values('rm','rm@iitrpr.ac.in','og');
+insert into log values('Mac','mac@iitrpr.ac.in',concat('sal','sa'));
+
+  
+create table hod_leave (
+	faculty_id varchar(50),
+	faculty_name varchar(50),
+	dept_name varchar(20),
+    reason_of_leave varchar(200),
+	num_of_leave_left_thisYear numeric(2),
+	curr_year numeric(4),
+    num_of_leave_applied numeric(2),
+	start_date DATE,
+	end_date DATE,
+	submitted timestamp,
+	primary key (faculty_id),
+	foreign key (faculty_id) references faculty);
+
+create table dean_leave (
+	faculty_id varchar(50),
+	faculty_name varchar(50),
+	dept_name varchar(20),
+    reason_of_leave varchar(200),
+	num_of_leave_left_thisYear numeric(2),
+	curr_year numeric(4),
+    num_of_leave_applied numeric(2),
+    hod_id varchar(50),
+	hod_comments varchar(100),
+	start_date DATE,
+	end_date DATE,
+submitted timestamp,
+approved timestamp,
+	primary key (faculty_id),
+	foreign key (faculty_id) references faculty
+);
+    
+create table dir_leave (
+	faculty_id varchar(50),
+	faculty_name varchar(50),
+	dept_name varchar(20),
+    reason_of_leave varchar(200),
+	num_of_leave_left_thisYear numeric(2),
+	curr_year numeric(4),
+    num_of_leave_applied numeric(2),
+	start_date DATE,
+	end_date DATE,
+	submitted timestamp,
+	co varchar(500),
+	primary key (faculty_id),
+	foreign key (faculty_id) references faculty
+	);
+
+insert into faculty values ('r@iitrpr.ac.in','r','me',10,2004,'hod');
+insert into faculty values ('ra@iitrpr.ac.in','ra','ee',10,2004,'hod');
+insert into faculty values ('ram@iitrpr.ac.in','ram','cs',10,2004,'hod');
+insert into faculty values ('rame@iitrpr.ac.in','rame','ee',10,2004,'emp');
+insert into faculty values ('rames@iitrpr.ac.in','rames','cs',10,2004,'emp');
+insert into faculty values ('ramesh@iitrpr.ac.in','ramesh','ee',10,2004,'dean');
+insert into faculty values('rm@iitrpr.ac.in','rm','ee',0,2004,'dir');
+insert into faculty values ('mac@iitrpr.ac.in','mac','me',0,2004,'emp');
+
+
+create table rejected(
+	faculty_id varchar(50),
+	dept_name varchar(10),
+	who varchar(10),
+	comm varchar(500),
+	tt timestamp
+);
+
+
+create table archive(
+	faculty_id varchar(50),
+	faculty_name varchar(50),
+	dept_name varchar(20),
+    reason_of_leave varchar(200),
+	curr_year numeric(4),
+	start_date DATE,
+	end_date DATE,
+	tt timestamp,
+	hod_comments varchar(100),
+	dean_comments varchar(100),
+	dir_comments varchar(100),
+	tt_p timestamp
+);
+
+create table msg(
+	faculty_id varchar(50),
+	hod_comm  varchar(500),
+	dean_comm varchar(500),
+	dir_comm varchar(500),
+	dept_name varchar(10)
+);

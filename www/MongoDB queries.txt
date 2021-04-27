@@ -1,0 +1,6 @@
+mongo "mongodb+srv://cluster0.xachk.mongodb.net/test" --username mac
+use test
+
+db.test.insert({name: 'Mac', id: 'mac@iitrpr.ac.in'})
+db.test.insertMany([{name: 'r', id: 'r@iitrpr.ac.in'},{name: 'ra', id: 'ra@iitrpr.ac.in'}])
+db.test.update({name:'Mac'},{$set:{background:'Hello'}})
