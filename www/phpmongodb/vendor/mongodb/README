@@ -1,0 +1,2 @@
+Install MongoDB PHP extension called composer. This enables PHP to connect to the mongoDB database. Since the file is very large this file could not be uploaded.
+Simply add the vendor/mongodb file in this corresponding directory in your desktop after downloading the files. That file will only be generated after the installation of composer.
