@@ -1,0 +1,17 @@
+Database name:test
+Collection name:test
+
+Recommended way of adding the collection is via Mongo shell.
+But it can also be done via MongoDB compass.
+(But make sure the cluster is made in a local server)
+
+This works in Mongo Shell. (Do it after mongod services are running!)
+
+use test
+db.test.insert({name: 'Mac', id: 'mac@iitrpr.ac.in',background:'hello I am from Me department',publications:['three','5','two'],courses:['me1','me2','me3','me7','ge11']})
+db.test.insertMany([{name: 'r', id: 'r@iitrpr.ac.in',background:'some',publications:['t','s','d'],courses:['ge0','ge4','me11']}
+,{name: 'ra', id: 'ra@iitrpr.ac.in',background:'ss',publications:['ww'],courses:['ee0','ee9','ge0','ge2']},
+{name: 'rm', id: 'rm@iitrpr.ac.in',background:'yay',publications:['fire','water','earth','plasma','gas','solid'],courses:['ee101','ee7']},
+{name: 'ramesh', id: 'ramesh@iitrpr.ac.in',background:'amaze',publications:['xx','yy'],courses:['cs1']}])
+
+The profile pics are taken from the jpg file
